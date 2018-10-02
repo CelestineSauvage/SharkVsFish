@@ -1,0 +1,21 @@
+{
+  "torus":"dsq",
+  "gridSizeX":"50",
+  "gridSizeY":"50",
+  "canvasSizeX":"",
+  "canvasSizeY":"",
+  "boxSize":"5",
+  "delay":"",
+  "scheduling":"2",
+  "nbTicks":"",
+  "time":"200",
+  "trace":"",
+  "seed":"2",
+  "refresh":"1",
+  "grid":"1",
+  "nSharks":"20",
+  "nFishs":"100",
+  "fGestation":"4",
+  "sGestation":"10",
+  "sTime":"10"
+}
