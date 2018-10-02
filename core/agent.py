@@ -26,3 +26,15 @@ class Agent:
 
     def getType(self):
         pass
+
+    def updatePosition(self, env, newPos, classAgent, data):
+        if(newPos != None):
+            env.setPosition(self, newPos[0], newPos[1])
+            childPosX, childPosY = self.posX, self.posY
+            self.posX, self.posY = newPos
+
+            #On créer le noveau poison
+            if(self.gestation >= self.gestationDay):
+                self.gestation = 0
+                child = classAgent(childPosX, childPosY, data)
+                env.appendAgent(child, childPosX, childPosY)

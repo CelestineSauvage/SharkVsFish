@@ -12,9 +12,9 @@ class View :
         self.window.geometry(str(self.w)+"x"+str(self.h))
 
         #canvas
-        self.canvas = Canvas(self.window, height=self.h, width=self.w)
+        self.canvas = Canvas(self.window, height=self.h, width=self.w,background='cyan')
         self.canvas.grid(row=1, column=1, sticky='w')
-
+        #self.window.configure(background='blue')
         if (grid):
             self.create_grid()
         self.init_agents(l_agents)
@@ -28,11 +28,11 @@ class View :
 
         # Creates all vertical lines at intevals of 100
         for i in range(0, self.w, self.size+1):
-            self.canvas.create_line([(i, 0), (i, self.h)], tag='grid_line')
+            self.canvas.create_line([(i, 0), (i, self.h)], tag='grid_line', fill='white')
 
         # Creates all horizontal lines at intevals of 100
         for i in range(0, self.h, self.size+1):
-            self.canvas.create_line([(0, i), (self.w, i)], tag='grid_line')
+            self.canvas.create_line([(0, i), (self.w, i)], tag='grid_line', fill='white')
 
     def init_agents(self, l_agents):
         """
@@ -56,19 +56,22 @@ class View :
             x = ag.posX
             y = ag.posY
             color = ag.color
-            if(ag.life == 0):
-                try:
-                    self.canvas.delete(ag.circle)
-                except:
-                    pass
+            try:
+                ag.circle
+                defCircle = True
+            except:
+                defCircle = False
+
+            if(ag.life == 0 and defCircle):
+                self.canvas.delete(ag.circle)
             else:
-                try:
+                if defCircle :
                     self.canvas.itemconfig(ag.circle, outline=color, fill=color)
                     self.canvas.coords(ag.circle, (x * self.size)+x,
                                                     (y * self.size)+ y,
                                                     (x * self.size) + self.size + x,
                                                     (y * self.size) + self.size + y)
-                except:
+                elif(ag.life != 0):
                     ag.circle = self.canvas.create_oval([(x * self.size)+x,
                                                         (y * self.size)+ y,
                                                         (x * self.size) + self.size + x,

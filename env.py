@@ -93,3 +93,13 @@ class Env:
         else:
             self.unsetAgent(posX,posY)
             agentMort.life = 0
+
+    def removeDeadAgent(self):
+        agents = []
+        size = len(self.l_agents)
+        i = 0
+        for index  in range(0, size, 1):
+            if (self.l_agents[index].life != 0):
+                agents.append(self.l_agents[index])
+                i += 1
+        self.l_agents = agents

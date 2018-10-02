@@ -70,23 +70,9 @@ class SMA:
         """
         if (self.nturn == self.limite): # nb de tours < limite ?
             exit()
-        for ag in self.env.l_agents:
-            if (ag.life == 0):
-                self.env.l_agents.remove(ag)
-
-        # nbAgentBoard = 0
-        # for x in self.env.grid:
-        #     for case in x:
-        #         if(case != 0):
-        #             if(case.life !=0):
-        #                 nbAgentBoard+=1
-        # if(nbAgentBoard != len(self.env.l_agents)):
-        #     print("Oups!")
-        #     print(nbAgentBoard -len(self.env.l_agents))
+        self.env.removeDeadAgent()
         self.nturn+=1 # on incrémente le nombre de tour
-        #self.scheduling() #quelle méthode pour donner la parole ?
         for i in range(0,self.refresh): # taux de refresh de la page
-
             # TOUR DE TOUS LES AGENTS
             for ag in self.env.l_agents:
                 ag.decide(self.env)
@@ -114,7 +100,7 @@ def parse():
 
 def main():
     data = parse()
-
+    
     # set des valeurs par défault
     nSharks = 10
     nFishs = 10

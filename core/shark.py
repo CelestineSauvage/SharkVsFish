@@ -30,17 +30,7 @@ class Shark(Agent):
                 return;
             else:
                 newPos = env.canMove(self.posX, self.posY)
-
-        if(newPos != None):
-            env.setPosition(self, newPos[0], newPos[1])
-            childPosX, childPosY = self.posX, self.posY
-            self.posX, self.posY = newPos
-
-            #On créer le noveau poison
-            if(self.gestation >= self.gestationDay):
-                self.gestation = 0
-                child = Shark(childPosX, childPosY, [self.gestationDay, self.deadTime])
-                env.appendAgent(child, childPosX, childPosY)
+        self.updatePosition(env, newPos, Shark, [self.gestationDay, self.deadTime])
 
     def getType(self):
         return "shark"

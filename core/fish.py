@@ -14,21 +14,9 @@ class Fish(Agent):
 
     def decide(self, env):
         self.gestation+=1
-        newPosition = env.canMove(self.posX, self.posY)
+        newPos = env.canMove(self.posX, self.posY)
 
-        #Position déjà prix
-        if(newPosition != None):
-            #On déplace le poisson
-            env.setPosition(self, newPosition[0], newPosition[1])
-            childPosX, childPosY = self.posX, self.posY
-            self.posX, self.posY = newPosition
-
-            #On créer le noveau poison
-            if(self.gestation >= self.gestationDay):
-                self.gestation = 0
-                child = Fish(childPosX, childPosY, [self.gestationDay])
-                env.appendAgent(child, childPosX, childPosY)
-
+        self.updatePosition(env, newPos, Fish, [self.gestationDay])
         return
 
     def getType(self):
