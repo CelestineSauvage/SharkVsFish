@@ -62,6 +62,7 @@ class Env:
 
     def hasFish(self, posX, posY):
         listFish = []
+
         for x in range(posX-1, posX+2, 1):
             for y in range(posY-1, posY+2, 1):
                 xFish = (x+self.l)%self.l
@@ -86,10 +87,11 @@ class Env:
         self.setPosition(agent, posX, posY)
         self.l_agents.append(agent)
 
-    def dead(self, posX, posY):
+    def dead(self, posX, posY,a):
         agentMort = self.grid[posX][posY]
         if(agentMort == 0):
-            print("Bug")
+            print("Coucou ",a)
+            exit()
         else:
             self.unsetAgent(posX,posY)
             agentMort.life = 0

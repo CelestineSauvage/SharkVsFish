@@ -64,14 +64,14 @@ class View :
 
             if(ag.life == 0 and defCircle):
                 self.canvas.delete(ag.circle)
-            else:
+            elif(ag.life != 0):
                 if defCircle :
                     self.canvas.itemconfig(ag.circle, outline=color, fill=color)
                     self.canvas.coords(ag.circle, (x * self.size)+x,
                                                     (y * self.size)+ y,
                                                     (x * self.size) + self.size + x,
                                                     (y * self.size) + self.size + y)
-                elif(ag.life != 0):
+                else:
                     ag.circle = self.canvas.create_oval([(x * self.size)+x,
                                                         (y * self.size)+ y,
                                                         (x * self.size) + self.size + x,
