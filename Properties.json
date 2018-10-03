@@ -1,7 +1,7 @@
 {
   "torus":"dsq",
-  "gridSizeX":"100",
-  "gridSizeY":"100",
+  "gridSizeX":"200",
+  "gridSizeY":"200",
   "canvasSizeX":"",
   "canvasSizeY":"",
   "boxSize":"5",
@@ -13,9 +13,9 @@
   "seed":"1000",
   "refresh":"1",
   "grid":"1",
-  "nSharks":"20",
+  "nSharks":"200",
   "nFishs":"500",
   "fGestation":"4",
-  "sGestation":"10",
+  "sGestation":"8",
   "sTime":"5"
 }

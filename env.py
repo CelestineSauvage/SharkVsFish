@@ -67,6 +67,7 @@ class Env:
             for y in range(posY-1, posY+2, 1):
                 caseX = (x+self.l)%self.l
                 caseY = (y+self.h)%self.h
+                listPos.append()
                 #Si aucun agent on l'ajout dans les positions possible
                 if(self.grid[caseX][caseY] == None):
                     listPos.append((caseX,caseY))
@@ -81,17 +82,23 @@ class Env:
         Permet de savoir si il y a un poisson à côté de l'agent
         """
         listFish = []
-
+        listPos = []
         for x in range(posX-1, posX+2, 1):
             for y in range(posY-1, posY+2, 1):
                 xFish = (x+self.l)%self.l
                 yFish = (y+self.h)%self.h
                 case = self.grid[xFish][yFish]
-                if(case != None and case.getType() == "fish"):
-                    listFish.append((xFish, yFish))
+                if case != None :
+                    if case.getType() == "fish":
+                        listFish.append((xFish, yFish, True))
+                    #Position libre, mais pas de poison
+                    else :
+                        listPos.append((xFish, yFish, False))
 
         if listFish :
             return listFish[random.randint(0,len(listFish)-1)]
+        elif listPos:
+            return listPos[random.randint(0,len(listPos)-1)]
         else:
             return None
 
@@ -105,12 +112,14 @@ class Env:
 
     def appendAgent(self, agent, posX, posY):
         """
+        Ajout un agent
         """
         self.setPosition(agent, posX, posY)
         self.l_agents.append(agent)
 
     def dead(self, posX, posY):
         """
+        Tue l'agent à la position posX,PosY
         """
         agentMort = self.grid[posX][posY]
         if(agentMort == None):
@@ -122,6 +131,7 @@ class Env:
 
     def removeDeadAgent(self):
         """
+        Permet de supprimer tous les agents morts
         """
         agents = []
         size = len(self.l_agents)
