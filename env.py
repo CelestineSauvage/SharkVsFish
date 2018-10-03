@@ -16,21 +16,28 @@ class Env:
         self.t = t
         self.size = size
         self.seed = seed
+        self.nbShark = 0
+        self.nbFish = 0
 
+        #Initialisation de la grille
+        self.grid = [[None] * (self.h) for _ in range(self.l)]
+                
+        # initialise avec une graine le random
+        if (self.seed != -1):
+            random.seed(self.seed) 
+        
 
     def generate(self, n, classAgent, data):
         """
         Place n agent aléatoirement sur la grille
         """
         i = 0
-        self.grid = [[0] * (self.h) for _ in range(self.l)] # tableau vide
-        if (self.seed != -1):
-            random.seed(self.seed) # initialise avec une graine le random
+
         while (i < n) : # on génère les n agents dans le tableau
             # pour chaque agent, on le place aléatoirement sur la map
             posX = random.randint(0, self.l-1)
             posY = random.randint(0, self.h-1)
-            if (self.getAgent(posX, posY) == 0): # si pas de bille sur cette case
+            if (self.getAgent(posX, posY) == None): # si pas de bille sur cette case
                 agent = classAgent(posX, posY, data)
                 self.grid[posX][posY] = agent
                 self.l_agents.append(agent)
@@ -44,23 +51,35 @@ class Env:
         return self.grid[posX][posY]
 
     def unsetAgent(self, posX, posY):
-        self.grid[posX][posY] = 0
+        """
+        Supprime l'agent de la grille qui se trouve à la position posX, posY
+        """
+        self.grid[posX][posY] = None
 
     def canMove(self, posX, posY):
         """
+        Regarde les case autour de l'agent et prend une case disponible
         """
         listPos = []
+        
+        #On parcours toutes les case adjacent
         for x in range(posX-1, posX+2, 1):
             for y in range(posY-1, posY+2, 1):
-                listPos.append(((x+self.l)%self.l,(y+self.h)%self.h))
-        random.shuffle(listPos)
+                caseX = (x+self.l)%self.l
+                caseY = (y+self.h)%self.h
+                #Si aucun agent on l'ajout dans les positions possible
+                if(self.grid[caseX][caseY] == None):
+                    listPos.append((caseX,caseY))
 
-        for (x,y) in listPos:
-            if(self.grid[x][y] == 0):
-                return (x,y)
+        if(len(listPos) != 0):
+            return listPos[random.randint(0,len(listPos)-1)]
+
         return None
 
     def hasFish(self, posX, posY):
+        """
+        Permet de savoir si il y a un poisson à côté de l'agent
+        """
         listFish = []
 
         for x in range(posX-1, posX+2, 1):
@@ -68,8 +87,9 @@ class Env:
                 xFish = (x+self.l)%self.l
                 yFish = (y+self.h)%self.h
                 case = self.grid[xFish][yFish]
-                if(case != 0 and case.getType() == "fish"):
+                if(case != None and case.getType() == "fish"):
                     listFish.append((xFish, yFish))
+
         if listFish :
             return listFish[random.randint(0,len(listFish)-1)]
         else:
@@ -84,12 +104,16 @@ class Env:
         self.grid[posX][posY]=agent
 
     def appendAgent(self, agent, posX, posY):
+        """
+        """
         self.setPosition(agent, posX, posY)
         self.l_agents.append(agent)
 
     def dead(self, posX, posY):
+        """
+        """
         agentMort = self.grid[posX][posY]
-        if(agentMort == 0):
+        if(agentMort == None):
             printf("Bug")
             exit()
         else:
@@ -97,6 +121,8 @@ class Env:
             agentMort.life = 0
 
     def removeDeadAgent(self):
+        """
+        """
         agents = []
         size = len(self.l_agents)
         i = 0
