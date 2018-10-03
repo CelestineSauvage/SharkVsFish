@@ -29,7 +29,7 @@ class Agent:
 
     def updatePosition(self, env, newPos, classAgent, data):
         if(newPos != None):
-            env.setPosition(self, newPos[0], newPos[1])
+            env.setAgentPosition(self, newPos[0], newPos[1])
             childPosX, childPosY = self.posX, self.posY
             self.posX, self.posY = newPos
 
