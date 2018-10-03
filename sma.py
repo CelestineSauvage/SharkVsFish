@@ -75,9 +75,8 @@ class SMA:
         for i in range(0,self.refresh): # taux de refresh de la page
             # TOUR DE TOUS LES AGENTS
             for ag in self.env.l_agents:
-                ag.decide(self.env)
-                if (self.trace):
-                    ag.describe()
+                if(ag.life != 0):                
+                    ag.decide(self.env)
 
         if (self.delay):
             self.time+= 1

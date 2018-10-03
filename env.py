@@ -87,10 +87,10 @@ class Env:
         self.setPosition(agent, posX, posY)
         self.l_agents.append(agent)
 
-    def dead(self, posX, posY,a):
+    def dead(self, posX, posY):
         agentMort = self.grid[posX][posY]
         if(agentMort == 0):
-            print("Coucou ",a)
+            printf("Bug")
             exit()
         else:
             self.unsetAgent(posX,posY)
