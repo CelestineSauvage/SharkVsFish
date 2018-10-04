@@ -10,7 +10,7 @@ class Fish(Agent):
 
         # Gestation
         self.gestationDay = data[0]
-        
+
 
     def decide(self, env):
         self.gestation+=1

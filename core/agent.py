@@ -29,7 +29,7 @@ class Agent:
         """
         """
         pass
-        
+
     def getAge(self):
         """"
         """
@@ -43,7 +43,7 @@ class Agent:
             childPosX, childPosY = self.posX, self.posY
             self.posX, self.posY = newPos
 
-            #On créer le noveau poison
+            #On créait le nouveau poisson
             if(self.gestation >= self.gestationDay):
                 self.gestation = 0
                 child = classAgent(childPosX, childPosY, data)

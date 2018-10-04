@@ -21,14 +21,14 @@ class Env:
         self.nbFish = [0] * sIntervale
         self.shark=[0] * sIntervale
         self.fishAge=[0] * sIntervale
-        
+
         self.times = [x for x in range(0,sIntervale,1)]
         if (displayGraph):
             self.graph = Graph()
 
         #Initialisation de la grille
         self.grid = [[None] * (self.h) for _ in range(self.l)]
-                
+
         # initialise avec une graine le random
         if (self.seed != -1):
             random.seed(self.seed)
@@ -73,7 +73,7 @@ class Env:
                 self.setAgentPosition(agent, posX, posY)
                 self.l_agents.append(agent)
                 i += 1
-    
+
     def setAgentPosition(self, agent, posX, posY):
         """
         Set un agent à la position x, y sur la grille
@@ -81,7 +81,7 @@ class Env:
         self.unsetAgent(agent.posX, agent.posY)
 
         self.grid[posX][posY]=agent
-        
+
     def hasFish(self, posX, posY):
         """
         Permet de savoir si il y a un poisson à côté de l'agent
@@ -90,15 +90,16 @@ class Env:
         listPos = []
         for x in range(posX-1, posX+2, 1):
             for y in range(posY-1, posY+2, 1):
-                xFish = (x+self.l)%self.l
-                yFish = (y+self.h)%self.h
-                case = self.getAgent(xFish, yFish)
-                if case != None :
-                    if case.getType() == "fish":
-                        listFish.append((xFish, yFish, True))
-                    #Position libre, mais pas de poison
-                    else :
-                        listPos.append((xFish, yFish, False))
+                if ((x,y)!=(0,0)):
+                    xFish = (x+self.l)%self.l
+                    yFish = (y+self.h)%self.h
+                    case = self.getAgent(xFish, yFish)
+                    if case != None :
+                        if type(s) is Fish:
+                            listFish.append((xFish, yFish, True))
+                        #Position libre, mais pas de poison
+                        else :
+                            listPos.append((xFish, yFish, False))
 
         if listFish :
             return listFish[random.randint(0,len(listFish)-1)]
@@ -112,7 +113,7 @@ class Env:
         Regarde les case autour de l'agent et prend une case disponible
         """
         listPos = []
-        
+
         #On parcours toutes les case adjacent
         for x in range(posX-1, posX+2, 1):
             for y in range(posY-1, posY+2, 1):
@@ -155,7 +156,7 @@ class Env:
         i = 0
         nbShark = 0
         nbFish = 0
-        
+
         for index  in range(0, size, 1):
             if (self.l_agents[index].life != 0):
                 agent = self.l_agents[index]
@@ -165,14 +166,14 @@ class Env:
                 else:
                     nbShark +=1
                 i += 1
-            
+
         self.l_agents = agents
 
         #Mise à jour de la liste de trassage
         self.nbShark = self.nbShark[1:] + [nbShark]
         self.nbFish = self.nbFish[1:] + [nbFish]
         self.times = self.times[1:] + [self.times[-1]+1]
-        
+
 
     def updateGraph(self):
         """
