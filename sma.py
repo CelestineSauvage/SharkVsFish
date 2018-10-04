@@ -20,7 +20,7 @@ class SMA:
     def __init__(self, nFishs, nSharks, fGestation, sGestation, sTime, l, h, t, size, seed, limite, refresh, delay, time, action, trace, grid, displayGraph, sIntervale):
 
         #env
-        self.env = Env(l, h, t, size, seed,displayGraph)
+        self.env = Env(l, h, t, size, seed,displayGraph,sIntervale)
 
         #n
         self.nSharks = nSharks

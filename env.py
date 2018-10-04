@@ -9,7 +9,7 @@ Celui-ci peut-être torique ou non
 """
 class Env:
 
-    def __init__(self, l, h, t, size, seed,displayGraph):
+    def __init__(self, l, h, t, size, seed,displayGraph, sIntervale):
         self.l = l
         self.h = h
         self.grid = []
@@ -17,12 +17,12 @@ class Env:
         self.t = t
         self.size = size
         self.seed = seed
-        self.nbShark = [0] * 100
-        self.nbFish = [0] * 100
-        self.shark=[0] * 100
-        self.fishAge=[0] * 100
+        self.nbShark = [0] * sIntervale
+        self.nbFish = [0] * sIntervale
+        self.shark=[0] * sIntervale
+        self.fishAge=[0] * sIntervale
         
-        self.times = [x for x in range(0,100,1)]
+        self.times = [x for x in range(0,sIntervale,1)]
         if (displayGraph):
             self.graph = Graph()
 
