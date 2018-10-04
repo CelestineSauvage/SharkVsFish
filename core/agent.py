@@ -10,13 +10,14 @@ class Agent:
         self.posX = posX
         self.posY = posY
         self.life = 1
+        self.age = 0
+        self.gestation = 0
 
     def decide(self, env):
         """
         Méthode qui permet à un agent de décider de son comportement
         """
         pass
-
 
     def describe(self):
         """
@@ -25,9 +26,18 @@ class Agent:
         print("Agent;"+str(self.posX)+","+str(self.posY))
 
     def getType(self):
+        """
+        """
         pass
+        
+    def getAge(self):
+        """"
+        """
+        return self.age
 
     def updatePosition(self, env, newPos, classAgent, data):
+        """"
+        """
         if(newPos != None):
             env.setAgentPosition(self, newPos[0], newPos[1])
             childPosX, childPosY = self.posX, self.posY

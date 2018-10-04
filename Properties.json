@@ -13,9 +13,11 @@
   "seed":"1000",
   "refresh":"1",
   "grid":"1",
-  "nSharks":"30",
+  "nSharks":"50",
   "nFishs":"50",
-  "fGestation":"2",
-  "sGestation":"8",
-  "sTime":"5"
+  "fGestation":"3",
+  "sGestation":"10",
+  "sTime":"5",
+  "displayGraph":"1",
+  "sIntervale":"100"
 }

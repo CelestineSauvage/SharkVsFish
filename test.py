@@ -1,27 +1,24 @@
-from env import Env
-from tkinter import *
-import random
-import time
-from agent import Agent
+import matplotlib.pyplot as plt
+import numpy as np
 
 
-def main():
-    window = Tk()
-    window.geometry("200x200")
+t = np.arange(0.0, 5.0, 0.1)
+s = np.exp(-t) + np.sin(2 * np.pi * t) + 1
+nse = np.random.normal(0.0, 0.3, t.shape) * s
 
-    canvas = Canvas(window, height=200, width=200)
-    canvas.grid(row=1, column=1, sticky='w')
+fig, (vax, hax) = plt.subplots(1, 2, figsize=(12, 6))
 
-    env = Env(1, 200, 200, False) #env
+vax.plot(t, s + nse, '^')
+vax.vlines(t, [0], s)
+# By using ``transform=vax.get_xaxis_transform()`` the y coordinates are scaled
+# such that 0 maps to the bottom of the axes and 1 to the top.
+vax.vlines([1, 2], 0, 1, transform=vax.get_xaxis_transform(), colors='r')
+vax.set_xlabel('time (s)')
+vax.set_title('Vertical lines demo')
 
-    posX = 100
-    posY = 100
-    pasX = 1
-    pasY = 1
+hax.plot(s + nse, t, '^')
+hax.hlines(t, [0], s, lw=2)
+hax.set_xlabel('time (s)')
+hax.set_title('Horizontal lines demo')
 
-    agent = Agent(canvas, posX, posY, pasX, pasY)
-
-    window.mainloop()
-
-if __name__ == "__main__":
-    main()
+plt.show()

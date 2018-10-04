@@ -17,10 +17,10 @@ Contient la méthode run() qui effectue le tour de parole
 """
 class SMA:
 
-    def __init__(self, nFishs, nSharks, fGestation, sGestation, sTime, l, h, t, size, seed, limite, refresh, delay, time, action, trace, grid):
+    def __init__(self, nFishs, nSharks, fGestation, sGestation, sTime, l, h, t, size, seed, limite, refresh, delay, time, action, trace, grid, displayGraph, sIntervale):
 
         #env
-        self.env = Env(l, h, t, size, seed)
+        self.env = Env(l, h, t, size, seed,displayGraph)
 
         #n
         self.nSharks = nSharks
@@ -51,6 +51,8 @@ class SMA:
 
         self.trace = trace
 
+        self.displayGraph = displayGraph
+        self.sIntervale = sIntervale
         # random
         if (seed != -1):
             random.seed(seed)
@@ -71,6 +73,10 @@ class SMA:
         if (self.nturn == self.limite): # nb de tours < limite ?
             exit()
         self.env.removeDeadAgent()
+
+        if(self.displayGraph):
+            self.env.updateGraph()
+
         self.nturn+=1 # on incrémente le nombre de tour
         for i in range(0,self.refresh): # taux de refresh de la page
             # TOUR DE TOUS LES AGENTS
@@ -118,6 +124,8 @@ def main():
     time = 20
     trace = False
     grid = False
+    displayGraph=False
+    sIntervale=20
 
     # parcours des options saisis par l'utilisateur
     if (data["torus"]):
@@ -154,9 +162,14 @@ def main():
         speed = int(data["time"])
     if (data["grid"]):
         grid = True
+    if(data["displayGraph"]):
+        displayGraph=True
+    if(data["sIntervale"]):
+        sIntervale=int(data["sIntervale"])
 
+    #Trop de paramètre xD
     game = SMA(nFishs,nSharks, fGestation, sGestation, sTime,
-     l, h, t, size, seed, limite, refresh, delay, speed, action, trace, grid)
+     l, h, t, size, seed, limite, refresh, delay, speed, action, trace, grid, displayGraph, sIntervale)
     game.run()
 
     # except :

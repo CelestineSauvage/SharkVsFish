@@ -11,12 +11,12 @@ class Shark(Agent):
         # Gestation
         self.gestationDay = data[0]
         self.deadTime =data[1]
-        self.gestation = 0
         self.hungry = 0
 
 
     def decide(self, env):
-        self.gestation+=1
+        self.gestation += 1
+        self.age += 1
         newPos = env.hasFish(self.posX, self.posY)
 
         #Mange poisson

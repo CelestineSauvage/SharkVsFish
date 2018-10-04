@@ -10,10 +10,12 @@ class Fish(Agent):
 
         # Gestation
         self.gestationDay = data[0]
-        self.gestation = 0
+        
 
     def decide(self, env):
         self.gestation+=1
+        self.age +=1
+
         newPos = env.canMove(self.posX, self.posY)
 
         self.updatePosition(env, newPos, Fish, [self.gestationDay])

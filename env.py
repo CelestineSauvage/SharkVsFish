@@ -9,7 +9,7 @@ Celui-ci peut-être torique ou non
 """
 class Env:
 
-    def __init__(self, l, h, t, size, seed):
+    def __init__(self, l, h, t, size, seed,displayGraph):
         self.l = l
         self.h = h
         self.grid = []
@@ -17,10 +17,14 @@ class Env:
         self.t = t
         self.size = size
         self.seed = seed
-        self.nbShark = [0] * 10
-        self.nbFish = [0] * 10
-        self.times = [x for x in range(0,10,1)]
-        self.graph = Graph()
+        self.nbShark = [0] * 100
+        self.nbFish = [0] * 100
+        self.shark=[0] * 100
+        self.fishAge=[0] * 100
+        
+        self.times = [x for x in range(0,100,1)]
+        if (displayGraph):
+            self.graph = Graph()
 
         #Initialisation de la grille
         self.grid = [[None] * (self.h) for _ in range(self.l)]
@@ -29,6 +33,9 @@ class Env:
         if (self.seed != -1):
             random.seed(self.seed)
 
+    #############################################
+    #   Opération primitive sur l'environement  #
+    #############################################
     def getAgent(self, posX, posY):
         """
         Retourne ce qu'il y a à la position x,y
@@ -47,25 +54,9 @@ class Env:
         """
         self.setPosition(None, posX, posY)
 
-    def canMove(self, posX, posY):
-        """
-        Regarde les case autour de l'agent et prend une case disponible
-        """
-        listPos = []
-        
-        #On parcours toutes les case adjacent
-        for x in range(posX-1, posX+2, 1):
-            for y in range(posY-1, posY+2, 1):
-                caseX = (x+self.l)%self.l
-                caseY = (y+self.h)%self.h
-                #Si aucun agent on l'ajout dans les positions possible
-                if(self.getAgent(caseX, caseY) == None):
-                    listPos.append((caseX,caseY))
-
-        if(len(listPos) != 0):
-            return listPos[random.randint(0,len(listPos)-1)]
-
-        return None
+    ##########################################
+    #   Opération primitive sur les agents  #
+    #########################################
 
     def generate(self, n, classAgent, data):
         """
@@ -116,6 +107,26 @@ class Env:
         else:
             return None
 
+    def canMove(self, posX, posY):
+        """
+        Regarde les case autour de l'agent et prend une case disponible
+        """
+        listPos = []
+        
+        #On parcours toutes les case adjacent
+        for x in range(posX-1, posX+2, 1):
+            for y in range(posY-1, posY+2, 1):
+                caseX = (x+self.l)%self.l
+                caseY = (y+self.h)%self.h
+                #Si aucun agent on l'ajout dans les positions possible
+                if(self.getAgent(caseX, caseY) == None):
+                    listPos.append((caseX,caseY))
+
+        if(len(listPos) != 0):
+            return listPos[random.randint(0,len(listPos)-1)]
+
+        return None
+
     def appendAgent(self, agent, posX, posY):
         """
         Ajout un agent
@@ -149,7 +160,6 @@ class Env:
             if (self.l_agents[index].life != 0):
                 agent = self.l_agents[index]
                 agents.append(agent)
-
                 if(agent.getType() == "fish"):
                     nbFish += 1
                 else:
@@ -158,7 +168,14 @@ class Env:
             
         self.l_agents = agents
 
+        #Mise à jour de la liste de trassage
         self.nbShark = self.nbShark[1:] + [nbShark]
         self.nbFish = self.nbFish[1:] + [nbFish]
+        self.times = self.times[1:] + [self.times[-1]+1]
+        
 
+    def updateGraph(self):
+        """
+        Met à jour le graphe des des
+        """
         self.graph.update(self.times, self.nbShark, self.nbFish)
