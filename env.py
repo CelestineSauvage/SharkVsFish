@@ -3,6 +3,9 @@ from core import *
 import random
 from graph import Graph
 
+# LISTE INITIALISEE UNE FOIS POUR LES POSTIONS ET LES POISSONS
+
+
 """
 Environnement sous forme de grille 2D (coordonnées entières et environnement discret) où sont placés les particules.
 Celui-ci peut-être torique ou non
@@ -21,6 +24,11 @@ class Env:
         self.nbFish = [0] * sIntervale
         self.shark=[0] * sIntervale
         self.fishAge=[0] * sIntervale
+
+        self.listFish = [(-1,-1) for i in range(8)]
+        self.listPos = [(-1,-1) for i in range(8)]
+        self.cptFish = 0
+        self.cptPos = 0
 
         self.times = [x for x in range(0,sIntervale,1)]
         if (displayGraph):
@@ -86,25 +94,28 @@ class Env:
         """
         Permet de savoir si il y a un poisson à côté de l'agent
         """
-        listFish = []
-        listPos = []
+        #On parcours les casees voisines du requin
+        self.cptFish = 0
+        self.cptPos = 0
         for x in range(posX-1, posX+2, 1):
             for y in range(posY-1, posY+2, 1):
-                if ((x,y)!=(0,0)):
-                    xFish = (x+self.l)%self.l
-                    yFish = (y+self.h)%self.h
-                    case = self.getAgent(xFish, yFish)
+                if ( (x,y) != (posX, posY) ):
+                    xCase = (x+self.l)%self.l
+                    yCase = (y+self.h)%self.h
+                    case = self.getAgent(xCase, yCase)
                     if case != None :
-                        if type(s) is Fish:
-                            listFish.append((xFish, yFish, True))
+                        if (case.getType() == 1):
+                            self.listFish[self.cptFish] = (xCase, yCase)
+                            self.cptFish +=1
                         #Position libre, mais pas de poison
-                        else :
-                            listPos.append((xFish, yFish, False))
+                    else :
+                        self.listPos[self.cptPos] = (xCase, yCase)
+                        self.cptPos +=1
 
-        if listFish :
-            return listFish[random.randint(0,len(listFish)-1)]
-        elif listPos:
-            return listPos[random.randint(0,len(listPos)-1)]
+        if (self.cptFish !=0) :
+            return (True, self.listFish[random.randint(0,self.cptFish-1)])
+        elif (self.cptPos !=0):
+            return (False, self.listPos[random.randint(0,self.cptPos-1)])
         else:
             return None
 
@@ -112,19 +123,21 @@ class Env:
         """
         Regarde les case autour de l'agent et prend une case disponible
         """
-        listPos = []
+        self.cptPos = 0
 
         #On parcours toutes les case adjacent
         for x in range(posX-1, posX+2, 1):
             for y in range(posY-1, posY+2, 1):
-                caseX = (x+self.l)%self.l
-                caseY = (y+self.h)%self.h
-                #Si aucun agent on l'ajout dans les positions possible
-                if(self.getAgent(caseX, caseY) == None):
-                    listPos.append((caseX,caseY))
+                if ( (x,y) != (posX, posY) ):
+                    xCase = (x+self.l)%self.l
+                    yCase = (y+self.h)%self.h
+                    #Si aucun agent on l'ajout dans les positions possible
+                    if(self.getAgent(xCase, yCase) == None):
+                        self.listPos[self.cptPos] = (xCase, yCase)
+                        self.cptPos +=1
 
-        if(len(listPos) != 0):
-            return listPos[random.randint(0,len(listPos)-1)]
+        if(self.cptPos != 0):
+            return self.listPos[random.randint(0,self.cptPos-1)]
 
         return None
 
@@ -141,8 +154,8 @@ class Env:
         """
         agentMort = self.getAgent(posX, posY)
         if(agentMort == None):
-            printf("Bug")
-            exit()
+            print("Bug")
+            # exit()
         else:
             self.unsetAgent(posX,posY)
             agentMort.life = 0
