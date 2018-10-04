@@ -18,8 +18,9 @@ class Fish(Agent):
 
         newPos = env.canMove(self.posX, self.posY)
 
-        self.updatePosition(env, newPos, Fish, [self.gestationDay])
+        if (newPos):
+            self.updatePosition(env, newPos, Fish, [self.gestationDay])
         return
 
     def getType(self):
-        return "fish"
+        return 1

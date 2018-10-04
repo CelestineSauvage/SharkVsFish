@@ -1,6 +1,7 @@
 #coding: utf-8
 from core import *
 import random
+import numpy as np
 from graph import Graph
 
 # LISTE INITIALISEE UNE FOIS POUR LES POSTIONS ET LES POISSONS
@@ -25,8 +26,12 @@ class Env:
         self.shark=[0] * sIntervale
         self.fishAge=[0] * sIntervale
 
+        #Pour la gestion du voisinage de Moore, on initialise les tableaux et les index pour parcourir ce tableau
+        # self.listFish = np.array([(-1,-1) for i in range(8)])
+        # self.listPos = np.array([(-1,-1) for i in range(8)])
         self.listFish = [(-1,-1) for i in range(8)]
         self.listPos = [(-1,-1) for i in range(8)]
+        # self.tab =  np.array([None for i in range(8)])
         self.cptFish = 0
         self.cptPos = 0
 
@@ -35,7 +40,7 @@ class Env:
             self.graph = Graph()
 
         #Initialisation de la grille
-        self.grid = [[None] * (self.h) for _ in range(self.l)]
+        self.grid = np.array([[None] * (self.h) for _ in range(self.l)])
 
         # initialise avec une graine le random
         if (self.seed != -1):
@@ -90,27 +95,25 @@ class Env:
 
         self.grid[posX][posY]=agent
 
-    def hasFish(self, posX, posY):
+    def hasFish(self, x, y):
         """
         Permet de savoir si il y a un poisson à côté de l'agent
         """
         #On parcours les casees voisines du requin
         self.cptFish = 0
         self.cptPos = 0
-        for x in range(posX-1, posX+2, 1):
-            for y in range(posY-1, posY+2, 1):
-                if ( (x,y) != (posX, posY) ):
-                    xCase = (x+self.l)%self.l
-                    yCase = (y+self.h)%self.h
-                    case = self.getAgent(xCase, yCase)
-                    if case != None :
-                        if (case.getType() == 1):
-                            self.listFish[self.cptFish] = (xCase, yCase)
-                            self.cptFish +=1
-                        #Position libre, mais pas de poison
-                    else :
-                        self.listPos[self.cptPos] = (xCase, yCase)
-                        self.cptPos +=1
+
+        for dx, dy in ((-1,-1), (0,-1), (-1,1), (1,0), (1,-1), (0,1), (-1,0), (1,1)):
+            xp, yp = (x+dx+self.l) % self.l, (y+dy+self.h) % self.h
+            case = self.getAgent(xp, yp)
+            if case != None :
+                if (case.getType() == 1):
+                    self.listFish[self.cptFish] = (xp, yp)
+                    self.cptFish +=1
+                #Position libre, mais pas de poison
+            else :
+                self.listPos[self.cptPos] = (xp, yp)
+                self.cptPos +=1
 
         if (self.cptFish !=0) :
             return (True, self.listFish[random.randint(0,self.cptFish-1)])
@@ -119,22 +122,20 @@ class Env:
         else:
             return None
 
-    def canMove(self, posX, posY):
+    def canMove(self, x, y):
         """
         Regarde les case autour de l'agent et prend une case disponible
         """
         self.cptPos = 0
 
         #On parcours toutes les case adjacent
-        for x in range(posX-1, posX+2, 1):
-            for y in range(posY-1, posY+2, 1):
-                if ( (x,y) != (posX, posY) ):
-                    xCase = (x+self.l)%self.l
-                    yCase = (y+self.h)%self.h
-                    #Si aucun agent on l'ajout dans les positions possible
-                    if(self.getAgent(xCase, yCase) == None):
-                        self.listPos[self.cptPos] = (xCase, yCase)
-                        self.cptPos +=1
+        for dx, dy in ((-1,-1), (0,-1), (-1,1), (1,0), (1,-1), (0,1), (-1,0), (1,1)):
+            xp, yp = (x+dx+self.l) % self.l, (y+dy+self.h) % self.h
+            case = self.getAgent(xp, yp)
+            #Si aucun agent on l'ajout dans les positions possible
+            if(case == None):
+                self.listPos[self.cptPos] = (xp, yp)
+                self.cptPos +=1
 
         if(self.cptPos != 0):
             return self.listPos[random.randint(0,self.cptPos-1)]

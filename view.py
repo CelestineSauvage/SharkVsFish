@@ -42,7 +42,7 @@ class View :
             x = ag.posX
             y = ag.posY
             color = ag.color
-            ag.circle = self.canvas.create_oval([(x * self.size)+x,
+            ag.circle = self.canvas.create_rectangle([(x * self.size)+x,
                                                 (y * self.size)+ y,
                                                 (x * self.size) + self.size + x,
                                                 (y * self.size) + self.size + y],
@@ -72,7 +72,7 @@ class View :
                                                     (x * self.size) + self.size + x,
                                                     (y * self.size) + self.size + y)
                 else:
-                    ag.circle = self.canvas.create_oval([(x * self.size)+x,
+                    ag.circle = self.canvas.create_rectangle([(x * self.size)+x,
                                                         (y * self.size)+ y,
                                                         (x * self.size) + self.size + x,
                                                         (y * self.size) + self.size + y],

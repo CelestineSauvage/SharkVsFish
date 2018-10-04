@@ -20,19 +20,19 @@ class Shark(Agent):
         newPos = env.hasFish(self.posX, self.posY)
 
         #Mange poisson
-        if(newPos !=None and newPos[2]):
+        if(newPos !=None and newPos[0]):
+            # print("newPos", newPos[1])
             self.hungry = 0
-            env.dead(newPos[0],newPos[1])
+            env.dead(newPos[1][0],newPos[1][1])
         else:
             self.hungry +=1
             if(self.hungry>=self.deadTime):
                 env.dead(self.posX, self.posY)
                 return;
-            else:
-                newPos = env.canMove(self.posX, self.posY)
-        if newPos:
-            self.updatePosition(env, (newPos[0],newPos[1]), Shark, [self.gestationDay, self.deadTime])
+
+        if (newPos):
+            self.updatePosition(env, newPos[1], Shark, [self.gestationDay, self.deadTime])
 
 
     def getType(self):
-        return "shark"
+        return 2
