@@ -21,13 +21,12 @@ class Shark(Agent):
 
         #Mange poisson
         if(newPos !=None and newPos[0]):
-            # print("newPos", newPos[1])
             self.hungry = 0
             env.dead(newPos[1][0],newPos[1][1])
         else:
             self.hungry +=1
             if(self.hungry>=self.deadTime):
-                env.dead(self.posX, self.posY)
+                env.dead(self.posX, self.posY, self)
                 return;
 
         if (newPos):
@@ -37,4 +36,4 @@ class Shark(Agent):
 
 
     def getType(self):
-        return 2
+        return 0
