@@ -12,6 +12,7 @@ class Agent:
         self.life = 1
         self.age = 0
         self.gestation = 0
+        self.change = False
 
     def decide(self, env):
         """
@@ -39,6 +40,7 @@ class Agent:
         """"
         """
         if(self.life != 0):
+            self.change = True
             env.setAgentPosition(self, newPos[0], newPos[1])
             childPosX, childPosY = self.posX, self.posY
             self.posX, self.posY = newPos

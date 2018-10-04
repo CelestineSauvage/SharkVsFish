@@ -1,10 +1,10 @@
 {
   "torus":"dsq",
-  "gridSizeX":"150",
-  "gridSizeY":"150",
+  "gridSizeX":"200",
+  "gridSizeY":"200",
   "canvasSizeX":"",
   "canvasSizeY":"",
-  "boxSize":"1",
+  "boxSize":"2",
   "delay":"",
   "scheduling":"2",
   "nbTicks":"",

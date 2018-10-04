@@ -32,6 +32,8 @@ class Shark(Agent):
 
         if (newPos):
             self.updatePosition(env, newPos[1], Shark, [self.gestationDay, self.deadTime])
+        else :
+            self.change = False
 
 
     def getType(self):
