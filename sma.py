@@ -69,20 +69,28 @@ class SMA:
         """
         if (self.nturn == self.limite): # nb de tours < limite ?
             exit()
-        self.env.removeDeadAgent()
 
         if(self.displayGraph):
             self.env.updateGraph()
 
         self.nturn+=1 # on incrémente le nombre de tour
+        agentLife=[]
         for i in range(0,self.refresh): # taux de refresh de la page
             # TOUR DE TOUS LES AGENTS
             for ag in self.env.l_agents:
                 if(ag.life != 0):                
                     ag.decide(self.env)
+                    agentLife.append(ag)
+                else:
+                    try:
+                        ag.circle
+                        defCircle = True
+                    except:
+                        defCircle = False
+                    if defCircle:
+                        self.view.canvas.delete(ag.circle)
+            self.env.l_agents = agentLife
 
-        if (self.trace):
-            print("Turn;"+str(self.nturn))
         self.view.set_agent(self.time, self.env.l_agents, self.turn)
 
 
