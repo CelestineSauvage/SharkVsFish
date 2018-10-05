@@ -17,7 +17,7 @@ Contient la méthode run() qui effectue le tour de parole
 """
 class SMA:
 
-    def __init__(self, nFishs, nSharks, fGestation, sGestation, sTime, l, h, t, size, seed, limite, refresh, delay, time, action, trace, grid, displayGraph, sIntervale):
+    def __init__(self, nFishs, nSharks, fGestation, sGestation, sTime, l, h, t, size, seed, limite, refresh, time, action, trace, grid, displayGraph, sIntervale):
 
         #env
         self.env = Env(l, h, t, size, seed,displayGraph,sIntervale)
@@ -39,9 +39,6 @@ class SMA:
 
         #refresh
         self.refresh = refresh
-
-        #delay
-        self.delay = delay
 
         # time
         self.time = time
@@ -84,8 +81,6 @@ class SMA:
                 if(ag.life != 0):                
                     ag.decide(self.env)
 
-        if (self.delay):
-            self.time+= 1
         if (self.trace):
             print("Turn;"+str(self.nturn))
         self.view.set_agent(self.time, self.env.l_agents, self.turn)
@@ -120,7 +115,6 @@ def main():
     action = 2
     limite = -1
     refresh = 1
-    delay = False
     time = 20
     trace = False
     grid = False
@@ -136,8 +130,6 @@ def main():
         h = int(data["gridSizeY"])
     if (data["boxSize"]):
         size = int(data["boxSize"])
-    if (data["delay"]):
-        delay = True
     if (data["scheduling"]):
         action = int(data["scheduling"])
     if (data["trace"]):
@@ -169,7 +161,7 @@ def main():
 
     #Trop de paramètre xD
     game = SMA(nFishs,nSharks, fGestation, sGestation, sTime,
-     l, h, t, size, seed, limite, refresh, delay, speed, action, trace, grid, displayGraph, sIntervale)
+     l, h, t, size, seed, limite, refresh, speed, action, trace, grid, displayGraph, sIntervale)
     game.run()
 
     # except :
