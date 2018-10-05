@@ -172,9 +172,6 @@ def main():
      l, h, t, size, seed, limite, refresh, delay, speed, action, trace, grid, displayGraph, sIntervale)
     game.run()
 
-    # except :
-    #     print("Tu chies dans la colle quelque part Célestine ")
-
 
 if __name__ == "__main__":
     # execute only if run as a script

@@ -50,3 +50,8 @@ class Agent:
                 self.gestation = 0
                 child = classAgent(childPosX, childPosY, data)
                 env.appendAgent(child, childPosX, childPosY)
+
+    def isLife(self):
+        """
+        """
+        pass

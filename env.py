@@ -188,22 +188,12 @@ class Env:
         nbFish = 0
 
         for index  in range(0, size, 1):
-            if (self.l_agents[index].life != 0):
+            if (self.l_agents[index].getLife() != 0):
                 agent = self.l_agents[index]
                 agents.append(agent)
-                if(agent.getType() == "fish"):
-                    nbFish += 1
-                else:
-                    nbShark +=1
                 i += 1
 
         self.l_agents = agents
-
-        #Mise à jour de la liste de trassage
-        self.nbShark = self.nbShark[1:] + [nbShark]
-        self.nbFish = self.nbFish[1:] + [nbFish]
-        self.times = self.times[1:] + [self.times[-1]+1]
-
 
     def updateGraph(self):
         """

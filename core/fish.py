@@ -2,6 +2,8 @@ from core.agent import Agent
 
 class Fish(Agent):
     def __init__(self, posX, posY, data):
+        """
+        """
         # position initiale de la particule
         super(Fish, self).__init__(posX, posY)
 
@@ -13,6 +15,8 @@ class Fish(Agent):
 
 
     def decide(self, env):
+        """
+        """
         self.gestation+=1
         self.age +=1
 
@@ -23,4 +27,11 @@ class Fish(Agent):
         return
 
     def getType(self):
+        """
+        """
+        return 1
+
+    def isLife(self):
+        """
+        """
         return 1

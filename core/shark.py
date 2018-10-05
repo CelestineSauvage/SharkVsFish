@@ -2,6 +2,8 @@ from core.agent import Agent
 
 class Shark(Agent):
     def __init__(self, posX, posY, data):
+        """
+        """
         # position initiale de la particule
         super(Shark, self).__init__(posX, posY)
 
@@ -15,6 +17,9 @@ class Shark(Agent):
 
 
     def decide(self, env):
+        """
+        
+        """
         self.gestation += 1
         self.age += 1
         newPos = env.hasFish(self.posX, self.posY)
@@ -34,6 +39,12 @@ class Shark(Agent):
         else :
             self.change = False
 
-
     def getType(self):
+        """
+        """
         return 0
+
+    def isLife(self):
+        """
+        """
+        return 1
