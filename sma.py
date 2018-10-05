@@ -84,7 +84,14 @@ class SMA:
                     agentList.append(ag)
                     # On met à jour la list des agents en vie
                     self.view.set_agent(ag)
-
+                else:
+                    try:
+                        ag.circle
+                        defCircle = True
+                    except:
+                        defCircle = False
+                    if defCircle:
+                        self.view.canvas.delete(ag.circle)
         # Mise a jour des nouveaux agent morts
         self.env.l_agents = agentList
 
