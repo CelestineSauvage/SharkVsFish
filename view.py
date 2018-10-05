@@ -48,37 +48,39 @@ class View :
                                                 (y * self.size) + self.size + y],
                                                 outline=color, fill=color)
 
-    def set_agent(self, time, l_agents, fct):
+    def set_agent(self, ag):
         """
         Bouge les ronds des agents
         """
-        for ag in l_agents:
-            x = ag.posX
-            y = ag.posY
-            color = ag.color
-            try:
-                ag.circle
-                defCircle = True
-            except:
-                defCircle = False
+        x = ag.posX
+        y = ag.posY
+        color = ag.color
+        try:
+            ag.circle
+            defCircle = True
+        except:
+            defCircle = False
 
-            if(ag.life == 0 and defCircle):
-                self.canvas.delete(ag.circle)
-            elif(ag.life != 0):
-                if (defCircle):
-                    # self.canvas.itemconfig(ag.circle, outline=color, fill=color)
-                    if(ag.change):
-                        self.canvas.coords(ag.circle, (x * self.size)+x,
-                                                        (y * self.size)+ y,
-                                                        (x * self.size) + self.size + x,
-                                                        (y * self.size) + self.size + y)
-                else:
-                    ag.circle = self.canvas.create_rectangle([(x * self.size)+x,
-                                                        (y * self.size)+ y,
-                                                        (x * self.size) + self.size + x,
-                                                        (y * self.size) + self.size + y],
-                                                        outline=color, fill=color)
+        if(ag.life == 0 and defCircle):
+            self.canvas.delete(ag.circle)
+        elif(ag.life != 0):
+            if (defCircle):
+                # self.canvas.itemconfig(ag.circle, outline=color, fill=color)
+                if(ag.change):
+                    self.canvas.coords(ag.circle, (x * self.size)+x,
+                                                    (y * self.size)+ y,
+                                                    (x * self.size) + self.size + x,
+                                                    (y * self.size) + self.size + y)
+            else:
+                ag.circle = self.canvas.create_rectangle([(x * self.size)+x,
+                                                    (y * self.size)+ y,
+                                                    (x * self.size) + self.size + x,
+                                                    (y * self.size) + self.size + y],
+                                                    outline=color, fill=color)
+    def defined_next_call(self, time, fct):
+        """
+        """
         self.window.after(time, fct)
-
+    
     def mainloop(self):
         self.window.mainloop()
