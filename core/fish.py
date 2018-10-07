@@ -1,26 +1,6 @@
-from core.agent import Agent
+from wator.WaterAnimal import *
 
 class Fish(Agent):
-    def __init__(self, posX, posY, data):
+    def __init__(self, posX, posY, gestationMax, **kwargs):
         # position initiale de la particule
-        super(Fish, self).__init__(posX, posY)
-
-        # Color
-        self.color = "blue"
-
-        # Gestation
-        self.gestationDay = data[0]
-
-
-    def decide(self, env):
-        self.gestation+=1
-        self.age +=1
-
-        newPos = env.canMove(self.posX, self.posY)
-
-        if (newPos):
-            self.updatePosition(env, newPos, Fish, [self.gestationDay])
-        return
-
-    def getType(self):
-        return 1
+        super(Fish, self).__init__(posX, posY, , gestationMax, kwargs)

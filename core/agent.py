@@ -5,48 +5,34 @@ Contient les caractéristiques des particules et une méthode decide(), destiné
 """
 class Agent:
 
-    def __init__(self, posX, posY):
+    def __init__(self, posX, posY, agentType):
         # position initiale de la particule
         self.posX = posX
         self.posY = posY
-        self.life = 1
+        self.agentType = agentType
         self.age = 0
-        self.gestation = 0
-        self.change = False
+        self.life = True
 
     def decide(self, env):
         """
-        Méthode qui permet à un agent de décider de son comportement
+        Permet à un agent de décider de son comportement
         """
-        pass
-
-    def describe(self):
-        """
-        Décrit la position de l'agent
-        """
-        print("Agent;"+str(self.posX)+","+str(self.posY))
+        raise NotImplementedError( "Should have implemented this" )
 
     def getType(self):
         """
+        Type de l'agent
         """
-        pass
-
+        return self.agentType
+        
     def getAge(self):
         """
+        Age de l'agent
         """
         return self.age
 
-    def updatePosition(self, env, newPos, classAgent, data):
-        """"
+    def isLife(self):
         """
-        if(self.life != 0):
-            self.change = True
-            env.setAgentPosition(self, newPos[0], newPos[1])
-            childPosX, childPosY = self.posX, self.posY
-            self.posX, self.posY = newPos
-
-            #On créait le nouveau poisson
-            if(self.gestation >= self.gestationDay):
-                self.gestation = 0
-                child = classAgent(childPosX, childPosY, data)
-                env.appendAgent(child, childPosX, childPosY)
+        Retourne vrai si l'agent est vivant sinon faux
+        """
+        return self.life
