@@ -7,10 +7,8 @@ import time
 import json
 
 
-from core.shark import Shark
-from core.fish import Fish
-
-from pprint import pprint
+from wator.shark import Shark
+from wator.fish import Fish
 
 """
 Contient la méthode run() qui effectue le tour de parole

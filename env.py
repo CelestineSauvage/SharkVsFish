@@ -175,7 +175,7 @@ class Env:
             if (self.l_agents[index].life != 0):
                 agent = self.l_agents[index]
                 agents.append(agent)
-                if(agent.getType() == "fish"):
+                if(agent.getType() ):
                     nbFish += 1
                 else:
                     nbShark +=1
