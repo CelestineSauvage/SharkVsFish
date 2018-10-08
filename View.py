@@ -53,7 +53,7 @@ class View :
             elif isLife :
                 if isInit:
                     color = agent.getType().getColor()
-                    agent.circle.configure(outline=color, fill=color)
+                    self.canvas.itemconfig(agent.circle, outline=color, fill=color)
                     self.canvas.coords(agent.circle, (x * self.size)+x,
                                                   (y * self.size)+ y,
                                                   (x * self.size) + self.size + x,
@@ -72,7 +72,7 @@ class View :
         
         """
         try:
-            ag.circle
+            agent.circle
             return True
         except:
             return False
