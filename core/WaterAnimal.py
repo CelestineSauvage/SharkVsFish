@@ -1,5 +1,5 @@
 import agent as agent
-from enum import Enum
+
 
 
 """
@@ -44,20 +44,3 @@ class WaterAnimal(agent.Agent):
                 self.gestation = 0
                 child = classAgent(childPosX, childPosY, data)
                 env.appendAgent(child, childPosX, childPosY)
-
-"""
-Class défini les différents type d'animaux acquatique existant
-"""
-class AgentType(Enum):
-
-    """
-
-    """
-    Shark = 1, "orange", "red" 
-    
-    """
-    """
-    Fish = 0, "white", "green"
-
-    def getColor(self):
-        return self.value

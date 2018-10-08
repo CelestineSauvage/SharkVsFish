@@ -13,24 +13,21 @@ Celui-ci peut-être torique ou non
 """
 class Env:
 
-    def __init__(self, l, h, t, size, seed,displayGraph, sIntervale):
+    def __init__(self, l, h, size, displayGraph, sIntervale):
         self.l = l
         self.h = h
         self.grid = []
         self.l_agents =[]
-        self.t = t
         self.size = size
-        self.seed = seed
         self.nbShark = [0] * sIntervale
         self.nbFish = [0] * sIntervale
         self.shark=[0] * sIntervale
         self.fishAge=[0] * sIntervale
 
         #Pour la gestion du voisinage de Moore, on initialise les tableaux et les index pour parcourir ce tableau
-        # self.listFish = np.array([(-1,-1) for i in range(8)])
-        # self.listPos = np.array([(-1,-1) for i in range(8)])
         self.listFish = [(-1,-1) for i in range(8)]
         self.listPos = [(-1,-1) for i in range(8)]
+
         # self.tab =  np.array([None for i in range(8)])
         self.cptFish = 0
         self.cptPos = 0
@@ -42,13 +39,10 @@ class Env:
         #Initialisation de la grille
         self.grid = np.array([[None] * (self.h) for _ in range(self.l)])
 
-        # initialise avec une graine le random
-        if (self.seed != -1):
-            random.seed(self.seed)
-
     #############################################
     #   Opération primitive sur l'environement  #
     #############################################
+
     def getAgent(self, posX, posY):
         """
         Retourne ce qu'il y a à la position x,y
@@ -154,12 +148,8 @@ class Env:
         Tue l'agent à la position posX,PosY
         """
         agentMort = self.getAgent(posX, posY)
-        if(agentMort == None):
-            print("Bug")
-            # exit()
-        else:
-            self.unsetAgent(posX,posY)
-            agentMort.life = 0
+        self.unsetAgent(posX,posY)
+        agentMort.dead()
 
     def removeDeadAgent(self):
         """
@@ -175,7 +165,7 @@ class Env:
             if (self.l_agents[index].life != 0):
                 agent = self.l_agents[index]
                 agents.append(agent)
-                if(agent.getType() ):
+                if(agent.getType() == AgentType.):
                     nbFish += 1
                 else:
                     nbShark +=1

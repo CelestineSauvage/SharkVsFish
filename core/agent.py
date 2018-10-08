@@ -36,3 +36,9 @@ class Agent:
         Retourne vrai si l'agent est vivant sinon faux
         """
         return self.life
+    
+    def dead(self):
+        """
+        Tue l'agent
+        """
+        self.life = False

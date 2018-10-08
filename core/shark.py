@@ -4,7 +4,7 @@ class Shark(Agent):
     def __init__(self, posX, posY, gestationMax, **kwargs):
 
         # position initiale de la particule
-        super(Shark, self).__init__(posX, posY, gestationMax, **kwargs)
+        super(Shark, self).__init__(posX, posY, AgentType.Shark, gestationMax, **kwargs)
 
         self.hungry = 0
 
