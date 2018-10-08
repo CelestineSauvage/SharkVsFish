@@ -16,9 +16,7 @@ class Shark(WaterAnimal):
         self.hungry = 0
 
 
-    def _comportement(self, env):
-        """
-        """
+    def comportement(self, env):
         newPos = env.hasFish(self.posX, self.posY)
 
         #Mange poisson
@@ -29,7 +27,7 @@ class Shark(WaterAnimal):
         else:
             self.hungry +=1
             if(self.hungry>=self.deadTime):
-                env.dead(self.posX, self.posY)
+                env.deadAgent(self)
                 return;
 
         if (newPos):

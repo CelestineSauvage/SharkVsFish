@@ -53,11 +53,11 @@ class View :
             elif isLife :
                 if isInit:
                     color = agent.getType().getColor()
+                    agent.circle.configure(outline=color, fill=color)
                     self.canvas.coords(agent.circle, (x * self.size)+x,
                                                   (y * self.size)+ y,
                                                   (x * self.size) + self.size + x,
-                                                  (y * self.size) + self.size + y,
-                                                   outline=color, fill=color)
+                                                  (y * self.size) + self.size + y)
                 else:
                     color = agent.getType().getColorStart()
                     agent.circle = self.canvas.create_rectangle([(x * self.size)+x,

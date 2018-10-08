@@ -60,9 +60,9 @@ class SMA:
         self.nturn+=1 # on incrémente le nombre de tour
         for i in range(0,self.refresh): # taux de refresh de la page
             # TOUR DE TOUS LES AGENTS
-            for ag in self.env.l_agents:
-                if(ag.life != 0):                
-                    ag.decide(self.env)
+            for agent in self.env.l_agents:
+                if agent.isLife():                
+                    agent.decide(self.env)
 
         self.view.displayAgents(self.time, self.env.l_agents, self.turn)
 

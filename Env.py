@@ -143,13 +143,21 @@ class Env:
         self.setAgentPosition(agent, posX, posY)
         self.l_agents.append(agent)
 
-    def dead(self, posX, posY, call):
+    def deadAgent(self, agent):
+        """
+        Tue l'agent à la position posX,PosY
+        """
+        self.unsetAgent(agent.posX, agent.posY)
+        agent.kill()
+
+    def dead(self, posX, posY):
         """
         Tue l'agent à la position posX,PosY
         """
         agentMort = self.getAgent(posX, posY)
         self.unsetAgent(posX,posY)
         agentMort.kill()
+        
 
     def removeDeadAgent(self):
         """

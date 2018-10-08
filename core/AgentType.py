@@ -1,6 +1,7 @@
 from enum import Enum
 
 """
+
 """
 class AgentType(Enum):
 
@@ -9,6 +10,7 @@ class AgentType(Enum):
     Shark = 1, "orange", "red"
 
     """
+
     """
     Fish = 2, "green", "yellow"
 

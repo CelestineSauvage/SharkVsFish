@@ -18,19 +18,22 @@ class WaterAnimal(agent.Agent):
 
     def decide(self, env):
         """
+
         """
         self.gestation+=1
         self.age +=1
 
-        self._comportement(env)
+        self.comportement(env)
         
-    def _comportement(self):
+    def comportement(self, env):
         """
+
         """
         raise NotImplementedError( "Should have implemented this" )
 
     def updatePosition(self, env, newPos, classAgent, data):
-        """"
+        """
+
         """
         if(self.life != 0):
             self.change = True
