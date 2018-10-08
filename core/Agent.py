@@ -37,7 +37,7 @@ class Agent:
         """
         return self.life
     
-    def dead(self):
+    def kill(self):
         """
         Tue l'agent
         """

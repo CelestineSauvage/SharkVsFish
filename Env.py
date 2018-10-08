@@ -1,10 +1,8 @@
 #coding: utf-8
-from core import *
 import random
 import numpy as np
-from graph import Graph
-
-# LISTE INITIALISEE UNE FOIS POUR LES POSTIONS ET LES POISSONS
+from Graph import Graph
+from core.AgentType import AgentType
 
 
 """
@@ -28,10 +26,11 @@ class Env:
         self.listFish = [(-1,-1) for i in range(8)]
         self.listPos = [(-1,-1) for i in range(8)]
 
-        # self.tab =  np.array([None for i in range(8)])
+        self.vector = [(-1,-1), (0,-1), (-1,1), (1,0), (1,-1), (0,1), (-1,0), (1,1)]
+
+         # Graph Variable
         self.cptFish = 0
         self.cptPos = 0
-
         self.times = [x for x in range(0,sIntervale,1)]
         if (displayGraph):
             self.graph = Graph()
@@ -65,7 +64,7 @@ class Env:
     #   Opération primitive sur les agents  #
     #########################################
 
-    def generate(self, n, classAgent, data):
+    def generate(self, n, classAgent, gestationMax, data):
         """
         Place n agent aléatoirement sur la grille
         """
@@ -76,7 +75,7 @@ class Env:
             posX = random.randint(0, self.l-1)
             posY = random.randint(0, self.h-1)
             if (self.getAgent(posX, posY) == None): # si pas de bille sur cette case
-                agent = classAgent(posX, posY, data)
+                agent = classAgent(posX, posY, gestationMax, data)
                 self.setAgentPosition(agent, posX, posY)
                 self.l_agents.append(agent)
                 i += 1
@@ -97,24 +96,25 @@ class Env:
         self.cptFish = 0
         self.cptPos = 0
 
-        for dx, dy in ((-1,-1), (0,-1), (-1,1), (1,0), (1,-1), (0,1), (-1,0), (1,1)):
+        for dx, dy in self.vector:
             xp, yp = (x+dx+self.l) % self.l, (y+dy+self.h) % self.h
+
             case = self.getAgent(xp, yp)
             if case != None :
-                if (case.getType() == 1):
+                if (case.getType() == AgentType.Fish):
                     self.listFish[self.cptFish] = (xp, yp)
                     self.cptFish +=1
                 #Position libre, mais pas de poison
-            else :
-                self.listPos[self.cptPos] = (xp, yp)
-                self.cptPos +=1
+                else :
+                    self.listPos[self.cptPos] = (xp, yp)
+                    self.cptPos +=1
 
         if (self.cptFish !=0) :
             return (True, self.listFish[random.randint(0,self.cptFish-1)])
         elif (self.cptPos !=0):
             return (False, self.listPos[random.randint(0,self.cptPos-1)])
-        else:
-            return None
+        
+        return None
 
     def canMove(self, x, y):
         """
@@ -123,7 +123,7 @@ class Env:
         self.cptPos = 0
 
         #On parcours toutes les case adjacent
-        for dx, dy in ((-1,-1), (0,-1), (-1,1), (1,0), (1,-1), (0,1), (-1,0), (1,1)):
+        for dx, dy in self.vector:
             xp, yp = (x+dx+self.l) % self.l, (y+dy+self.h) % self.h
             case = self.getAgent(xp, yp)
             #Si aucun agent on l'ajout dans les positions possible
@@ -143,13 +143,13 @@ class Env:
         self.setAgentPosition(agent, posX, posY)
         self.l_agents.append(agent)
 
-    def dead(self, posX, posY):
+    def dead(self, posX, posY, call):
         """
         Tue l'agent à la position posX,PosY
         """
         agentMort = self.getAgent(posX, posY)
         self.unsetAgent(posX,posY)
-        agentMort.dead()
+        agentMort.kill()
 
     def removeDeadAgent(self):
         """
@@ -157,19 +157,17 @@ class Env:
         """
         agents = []
         size = len(self.l_agents)
-        i = 0
         nbShark = 0
         nbFish = 0
 
         for index  in range(0, size, 1):
-            if (self.l_agents[index].life != 0):
-                agent = self.l_agents[index]
+            agent = self.l_agents[index]
+            if agent.isLife():
                 agents.append(agent)
-                if(agent.getType() == AgentType.):
+                if(agent.getType() == AgentType.Fish):
                     nbFish += 1
                 else:
                     nbShark +=1
-                i += 1
 
         self.l_agents = agents
 

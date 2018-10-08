@@ -1,4 +1,5 @@
 from tkinter import *
+from core.AgentType import AgentType
 
 """
 Définit l'affichage
@@ -51,17 +52,19 @@ class View :
 
             elif isLife :
                 if isInit:
-                    self.canvas.coords(ag.circle, (x * self.size)+x,
+                    color = agent.getType().getColor()
+                    self.canvas.coords(agent.circle, (x * self.size)+x,
                                                   (y * self.size)+ y,
                                                   (x * self.size) + self.size + x,
                                                   (y * self.size) + self.size + y,
-                                                   outline=color, fill=ag.getType().getColor())
+                                                   outline=color, fill=color)
                 else:
-                    ag.circle = self.canvas.create_rectangle([(x * self.size)+x,
+                    color = agent.getType().getColorStart()
+                    agent.circle = self.canvas.create_rectangle([(x * self.size)+x,
                                                     (y * self.size)+ y,
                                                     (x * self.size) + self.size + x,
                                                     (y * self.size) + self.size + y],
-                                                    outline=color, fill=ag.getType().getColorStart())
+                                                    outline=color, fill=color)
         self.window.after(time, fct)
 
     def isCanvasInit(self, agent):

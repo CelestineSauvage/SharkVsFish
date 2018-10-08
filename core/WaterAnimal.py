@@ -1,4 +1,4 @@
-import agent as agent
+import core.Agent as agent
 
 
 
@@ -6,14 +6,13 @@ import agent as agent
 
 """
 class WaterAnimal(agent.Agent):
-    def __init__(self, posX, posY, agentType, gestationMax, **kwargs):
+    def __init__(self, posX, posY, agentType, gestationDay, data):
         """
         Initialise un agent water
         """
         super(WaterAnimal, self).__init__(posX, posY, agentType)
-        self.__dict__.update(kwargs)
 
-        self.gestationMax = gestationMax
+        self.gestationDay = gestationDay
         self.change = False
         self.gestation = 0
 
@@ -23,14 +22,14 @@ class WaterAnimal(agent.Agent):
         self.gestation+=1
         self.age +=1
 
-        newPos = env.canMove(self.posX, self.posY)
-
-        if (newPos):
-            self.__updatePosition(env, newPos, Fish, [self.gestationDay])
-        return
+        self._comportement(env)
         
+    def _comportement(self):
+        """
+        """
+        raise NotImplementedError( "Should have implemented this" )
 
-    def __updatePosition(self, env, newPos, classAgent, **kwargs):
+    def updatePosition(self, env, newPos, classAgent, data):
         """"
         """
         if(self.life != 0):
@@ -42,5 +41,5 @@ class WaterAnimal(agent.Agent):
             #On créait le nouveau poisson
             if(self.gestation >= self.gestationDay):
                 self.gestation = 0
-                child = classAgent(childPosX, childPosY, data)
+                child = classAgent(childPosX, childPosY, self.gestationDay, data)
                 env.appendAgent(child, childPosX, childPosY)
