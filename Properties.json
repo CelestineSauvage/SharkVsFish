@@ -13,8 +13,8 @@
   "nSharks":"1000",
   "nFishs":"800",
   "fGestation":"2",
-  "sGestation":"5",
-  "sTime":"2",
+  "sGestation":"7",
+  "sTime":"5",
   "displayGraph":"1",
-  "sIntervale":"100"
+  "sIntervale":"1000"
 }
