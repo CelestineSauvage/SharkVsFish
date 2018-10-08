@@ -7,14 +7,14 @@
   "scheduling":"2",
   "nbTicks":"",
   "time":"10",
-  "seed":"",
+  "seed":"200",
   "refresh":"1",
   "grid":"",
   "nSharks":"1000",
   "nFishs":"800",
-  "fGestation":"2",
+  "fGestation":"5",
   "sGestation":"5",
-  "sTime":"2",
+  "sTime":"5",
   "displayGraph":"1",
-  "sIntervale":"100"
+  "sIntervale":"1000"
 }

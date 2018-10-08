@@ -14,9 +14,11 @@ class View :
         #canvas
         self.canvas = Canvas(self.window, height=self.h, width=self.w,background='cyan')
         self.canvas.grid(row=1, column=1, sticky='w')
+        self.grid = 0
         #self.window.configure(background='blue')
         if (grid):
             self.create_grid()
+            self.grid = 0.5
 
 
     def create_grid(self, event=None):
@@ -50,22 +52,22 @@ class View :
                     if agent.getAge() == 2:
                         color = agent.getColor()
                         self.canvas.itemconfig(agent.circle, outline=color, fill=color)
-                    self.canvas.coords(agent.circle, (x * self.size)+x,
-                                                        (y * self.size)+ y,
-                                                        (x * self.size) + self.size + x,
-                                                        (y * self.size) + self.size + y)
+                    self.canvas.coords(agent.circle, (x * self.size)+x + self.grid,
+                                                        (y * self.size)+ y+ self.grid,
+                                                        (x * self.size) + self.size + x - self.grid,
+                                                        (y * self.size) + self.size + y - self.grid)
                 else:
                     color = agent.getColorBorn()
-                    agent.circle = self.canvas.create_rectangle([(x * self.size)+x,
-                                                        (y * self.size)+ y,
-                                                        (x * self.size) + self.size + x,
-                                                        (y * self.size) + self.size + y],
+                    agent.circle = self.canvas.create_rectangle([(x * self.size)+x+ self.grid,
+                                                        (y * self.size)+ y+ self.grid,
+                                                        (x * self.size) + self.size + x - self.grid,
+                                                        (y * self.size) + self.size + y - self.grid],
                                                         outline=color, fill=color)
         self.window.after(time, fct)
 
     def isCanvasInit(self, agent):
         """
-        
+
         """
         try:
             agent.circle
