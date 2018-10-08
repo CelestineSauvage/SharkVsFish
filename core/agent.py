@@ -35,18 +35,10 @@ class Agent:
 
     def getColor(self):
         raise NotImplementedError( "Should have implemented this" )
-        
+
     def updatePosition(self, env, newPos, classAgent, data):
         """"
         """
-        if(self.life != 0):
-            self.change = True
-            env.setAgentPosition(self, newPos[0], newPos[1])
-            childPosX, childPosY = self.posX, self.posY
-            self.posX, self.posY = newPos
 
-            #On créait le nouveau poisson
-            if(self.gestation >= self.gestationDay):
-                self.gestation = 0
-                child = classAgent(childPosX, childPosY, data)
-                env.appendAgent(child, childPosX, childPosY)
+
+            #On crée le nouveau poisson

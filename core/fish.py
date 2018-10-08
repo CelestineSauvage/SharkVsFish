@@ -15,8 +15,17 @@ class Fish(Agent):
 
         newPos = env.canMove(self.posX, self.posY)
 
+        if (self.life == 0):
+            return
         if (newPos):
-            self.updatePosition(env, newPos, Fish, [self.gestationDay])
+            self.change = True
+            env.setAgentPosition(self, newPos[0], newPos[1])
+            childPosX, childPosY = self.posX, self.posY
+            self.posX, self.posY = newPos
+            if(self.gestation >= self.gestationDay):
+                self.gestation = 0
+                child = Fish(childPosX, childPosY, [self.gestationDay])
+                env.appendAgent(child, childPosX, childPosY)
         return
 
     def getType(self):
@@ -24,6 +33,6 @@ class Fish(Agent):
 
     def getColorBorn(self):
         return "yellow"
-    
+
     def getColor(self):
         return "green"
