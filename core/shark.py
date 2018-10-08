@@ -38,3 +38,9 @@ class Shark(Agent):
 
     def getType(self):
         return 2
+
+    def getColorBorn(self):
+        return "pink"
+    
+    def getColor(self):
+        return "red"

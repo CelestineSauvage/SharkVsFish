@@ -10,11 +10,6 @@ class Graph:
         self.shark, = self.ax.plot([],[],label="shark")
         self.fish, = self.ax.plot([],[],label="fish")
 
-        # self.sharkLife = self.ax.plot([], [], ' ')
-        # self.fishLife = self.ax.plot([], [], ' ')
-        
-
-
         self.ax.set_autoscaley_on(True)
         self.ax.set(xlabel='time (s)', ylabel='agents (u)',
             title="Nombre d'agent en fonction du temps qui passe")
@@ -30,14 +25,6 @@ class Graph:
         self.fish.set_ydata(yfish)
 
         self._updateScreen()
-
-    # def updateLife(self, xtime, yshark, yfish):
-    #     """"
-    #     """"
-    #     self.sharkLife.hlines(xtime, [0], yshark)
-    #     self.fishLife.hlines(xtime, [0], yfish)
-        
-    #     self._updateScreen()
 
     def _updateScreen(self):
         """

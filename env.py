@@ -13,24 +13,23 @@ Celui-ci peut-être torique ou non
 """
 class Env:
 
-    def __init__(self, l, h, t, size, seed,displayGraph, sIntervale):
+    def __init__(self, l, h, size, displayGraph, sIntervale):
         self.l = l
         self.h = h
         self.grid = []
         self.l_agents =[]
-        self.t = t
         self.size = size
-        self.seed = seed
         self.nbShark = [0] * sIntervale
         self.nbFish = [0] * sIntervale
         self.shark=[0] * sIntervale
         self.fishAge=[0] * sIntervale
 
         #Pour la gestion du voisinage de Moore, on initialise les tableaux et les index pour parcourir ce tableau
-        # self.listFish = np.array([(-1,-1) for i in range(8)])
-        # self.listPos = np.array([(-1,-1) for i in range(8)])
         self.listFish = [(-1,-1) for i in range(8)]
         self.listPos = [(-1,-1) for i in range(8)]
+
+        self.vector = [(-1,-1), (0,-1), (-1,1), (1,0), (1,-1), (0,1), (-1,0), (1,1)]
+
         # self.tab =  np.array([None for i in range(8)])
         self.cptFish = 0
         self.cptPos = 0
@@ -41,10 +40,6 @@ class Env:
 
         #Initialisation de la grille
         self.grid = np.array([[None] * (self.h) for _ in range(self.l)])
-
-        # initialise avec une graine le random
-        if (self.seed != -1):
-            random.seed(self.seed)
 
     #############################################
     #   Opération primitive sur l'environement  #
@@ -103,7 +98,7 @@ class Env:
         self.cptFish = 0
         self.cptPos = 0
 
-        for dx, dy in ((-1,-1), (0,-1), (-1,1), (1,0), (1,-1), (0,1), (-1,0), (1,1)):
+        for dx, dy in self.vector:
             xp, yp = (x+dx+self.l) % self.l, (y+dy+self.h) % self.h
             case = self.getAgent(xp, yp)
             if case != None :
@@ -129,7 +124,7 @@ class Env:
         self.cptPos = 0
 
         #On parcours toutes les case adjacent
-        for dx, dy in ((-1,-1), (0,-1), (-1,1), (1,0), (1,-1), (0,1), (-1,0), (1,1)):
+        for dx, dy in self.vector:
             xp, yp = (x+dx+self.l) % self.l, (y+dy+self.h) % self.h
             case = self.getAgent(xp, yp)
             #Si aucun agent on l'ajout dans les positions possible
@@ -154,12 +149,8 @@ class Env:
         Tue l'agent à la position posX,PosY
         """
         agentMort = self.getAgent(posX, posY)
-        if(agentMort == None):
-            print("Bug")
-            # exit()
-        else:
-            self.unsetAgent(posX,posY)
-            agentMort.life = 0
+        self.unsetAgent(posX,posY)
+        agentMort.life = 0
 
     def removeDeadAgent(self):
         """
@@ -167,7 +158,6 @@ class Env:
         """
         agents = []
         size = len(self.l_agents)
-        i = 0
         nbShark = 0
         nbFish = 0
 
@@ -179,7 +169,6 @@ class Env:
                     nbFish += 1
                 else:
                     nbShark +=1
-                i += 1
 
         self.l_agents = agents
 

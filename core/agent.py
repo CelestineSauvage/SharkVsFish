@@ -18,24 +18,24 @@ class Agent:
         """
         Méthode qui permet à un agent de décider de son comportement
         """
-        pass
-
-    def describe(self):
-        """
-        Décrit la position de l'agent
-        """
-        print("Agent;"+str(self.posX)+","+str(self.posY))
+        raise NotImplementedError( "Should have implemented this" )
 
     def getType(self):
         """
         """
-        pass
+        raise NotImplementedError( "Should have implemented this" )
 
     def getAge(self):
         """
         """
         return self.age
 
+    def getColorBorn(self):
+        raise NotImplementedError( "Should have implemented this" )
+
+    def getColor(self):
+        raise NotImplementedError( "Should have implemented this" )
+        
     def updatePosition(self, env, newPos, classAgent, data):
         """"
         """

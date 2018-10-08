@@ -17,7 +17,6 @@ class View :
         #self.window.configure(background='blue')
         if (grid):
             self.create_grid()
-        self.init_agents(l_agents)
 
 
     def create_grid(self, event=None):
@@ -34,51 +33,45 @@ class View :
         for i in range(0, self.h, self.size+1):
             self.canvas.create_line([(0, i), (self.w, i)], tag='grid_line', fill='white')
 
-    def init_agents(self, l_agents):
-        """
-        Initialise les ronds des agents
-        """
-        for ag in l_agents:
-            x = ag.posX
-            y = ag.posY
-            color = ag.color
-            ag.circle = self.canvas.create_rectangle([(x * self.size)+x,
-                                                (y * self.size)+ y,
-                                                (x * self.size) + self.size + x,
-                                                (y * self.size) + self.size + y],
-                                                outline=color, fill=color)
-
     def set_agent(self, time, l_agents, fct):
         """
         Bouge les ronds des agents
         """
-        for ag in l_agents:
-            x = ag.posX
-            y = ag.posY
-            color = ag.color
-            try:
-                ag.circle
-                defCircle = True
-            except:
-                defCircle = False
+        for agent in l_agents:
+            x = agent.posX
+            y = agent.posY
+            isInit = self.isCanvasInit(agent)
 
-            if(ag.life == 0 and defCircle):
-                self.canvas.delete(ag.circle)
-            elif(ag.life != 0):
-                if (defCircle):
-                    # self.canvas.itemconfig(ag.circle, outline=color, fill=color)
-                    if(ag.change):
-                        self.canvas.coords(ag.circle, (x * self.size)+x,
+            if(agent.life == 0):
+                if isInit :
+                    self.canvas.delete(agent.circle)
+            else:
+                if (isInit and agent.change):
+                    if agent.getAge() == 1:
+                        color = agent.getColor()
+                        self.canvas.itemconfig(agent.circle, outline=color, fill=color)
+                    self.canvas.coords(agent.circle, (x * self.size)+x,
                                                         (y * self.size)+ y,
                                                         (x * self.size) + self.size + x,
                                                         (y * self.size) + self.size + y)
                 else:
-                    ag.circle = self.canvas.create_rectangle([(x * self.size)+x,
+                    color = agent.getColorBorn()
+                    agent.circle = self.canvas.create_rectangle([(x * self.size)+x,
                                                         (y * self.size)+ y,
                                                         (x * self.size) + self.size + x,
                                                         (y * self.size) + self.size + y],
                                                         outline=color, fill=color)
         self.window.after(time, fct)
+
+    def isCanvasInit(self, agent):
+        """
+        
+        """
+        try:
+            agent.circle
+            return True
+        except:
+            return False
 
     def mainloop(self):
         self.window.mainloop()

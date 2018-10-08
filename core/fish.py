@@ -24,3 +24,9 @@ class Fish(Agent):
 
     def getType(self):
         return 1
+
+    def getColorBorn(self):
+        return "yellow"
+    
+    def getColor(self):
+        return "green"
