@@ -46,8 +46,8 @@ class View :
                 if isInit :
                     self.canvas.delete(agent.circle)
             else:
-                if (isInit and agent.change):
-                    if agent.getAge() == 1:
+                if (isInit ):
+                    if agent.getAge() == 2:
                         color = agent.getColor()
                         self.canvas.itemconfig(agent.circle, outline=color, fill=color)
                     self.canvas.coords(agent.circle, (x * self.size)+x,

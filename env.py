@@ -180,6 +180,6 @@ class Env:
 
     def updateGraph(self):
         """
-        Met à jour le graphe des des
+        Met à jour les graphes
         """
         self.graph.update(self.times, self.nbShark, self.nbFish)

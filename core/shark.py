@@ -5,9 +5,6 @@ class Shark(Agent):
         # position initiale de la particule
         super(Shark, self).__init__(posX, posY)
 
-        # Color
-        self.color = "red"
-
         # Gestation
         self.gestationDay = data[0]
         self.deadTime =data[1]
@@ -28,8 +25,7 @@ class Shark(Agent):
             self.hungry +=1
             if(self.hungry>=self.deadTime):
                 env.dead(self.posX, self.posY)
-                return;
-
+                return
         if (newPos):
             self.updatePosition(env, newPos[1], Shark, [self.gestationDay, self.deadTime])
         else :

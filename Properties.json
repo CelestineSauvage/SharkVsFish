@@ -1,6 +1,6 @@
 {
-  "gridSizeX":"300",
-  "gridSizeY":"150",
+  "gridSizeX":"128",
+  "gridSizeY":"80",
   "canvasSizeX":"",
   "canvasSizeY":"",
   "boxSize":"3",
@@ -12,9 +12,9 @@
   "grid":"",
   "nSharks":"1000",
   "nFishs":"800",
-  "fGestation":"17",
-  "sGestation":"22",
-  "sTime":"15",
+  "fGestation":"2",
+  "sGestation":"5",
+  "sTime":"2",
   "displayGraph":"1",
-  "sIntervale":"150"
+  "sIntervale":"100"
 }

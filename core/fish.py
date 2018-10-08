@@ -5,9 +5,6 @@ class Fish(Agent):
         # position initiale de la particule
         super(Fish, self).__init__(posX, posY)
 
-        # Color
-        self.color = "blue"
-
         # Gestation
         self.gestationDay = data[0]
 
