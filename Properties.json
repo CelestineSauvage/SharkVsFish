@@ -1,7 +1,7 @@
 {
   "torus":"dsq",
-  "gridSizeX":"200",
-  "gridSizeY":"200",
+  "gridSizeX":"100",
+  "gridSizeY":"100",
   "canvasSizeX":"",
   "canvasSizeY":"",
   "boxSize":"2",
@@ -18,6 +18,6 @@
   "fGestation":"4",
   "sGestation":"8",
   "sTime":"5",
-  "displayGraph":"",
-  "sIntervale":"50"
+  "displayGraph":"1",
+  "sIntervale":"150"
 }
